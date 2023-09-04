@@ -1,0 +1,45 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Criação do objeto Academico
+        Academico academico1 = new Academico("Enzo Soares Matias", "N780940");
+
+        // Exibição dos resultados
+        Console.WriteLine($"Indivíduo: {academico1.Nome} | RA: {academico1.RA}");
+
+        // Verificação de associação entre nome e RA
+        string raParaVerificar = "N780940";
+        if (academico1.RA == raParaVerificar)
+        {
+            Console.WriteLine($"O RA {raParaVerificar} pertence ao indivíduo {academico1.Nome}.");
+        }
+        else
+        {
+            Console.WriteLine($"O RA {raParaVerificar} não pertence a nenhum indivíduo.");
+        }
+    }
+}
+
+public class Individuo
+{
+    public string Nome { get; }
+
+    public Individuo(string nome)
+    {
+        Nome = nome;
+    }
+}
+
+public class Academico : Individuo
+{
+    public string RA { get; }
+
+    public Academico(string nome, string ra) : base(nome)
+    {
+        RA = ra;
+    }
+}
+
