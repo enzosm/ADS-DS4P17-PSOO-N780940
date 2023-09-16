@@ -1,0 +1,95 @@
+Diagrama de Classe
+
+No exemplo abaixo, temos um tema relacionado a um restaurante e uma cozinha, onde um cliente faz um pedido que é preparado na cozinha.
+
+
+
+
+
+< UML FERNADO. PNG>
+
+
+
+
+
+
+
+
+
+
+
+
+Ciclo de Execução:
+
+1. Um cliente chega ao restaurante e se senta em uma mesa.
+2. O cliente cria um objeto Pedido chamando o método fazerPedido().
+3. O cliente adiciona ItemPedido ao pedido.
+4. O sistema calcula o total do pedido chamando o método calcularTotal() do objeto Pedido.
+5. O pedido é enviado para a cozinha, onde um objeto Cozinha prepara o pedido chamando o método prepararPedido.
+
+
+
+Código fonte UML.
+
+using System;
+using System.Collections.Generic;
+
+class ItemPedido
+{
+    public string Nome { get; set; }
+    public int Quantidade { get; set; }
+    public decimal PrecoUnitario { get; set; }
+}
+
+class Pedido
+{
+    public int Numero { get; set; }
+    public List<ItemPedido> Itens { get; set; } = new List<ItemPedido>();
+    public decimal Total { get; private set; }
+
+    public void CalcularTotal()
+    {
+        foreach (var item in Itens)
+        {
+            Total += item.Quantidade * item.PrecoUnitario;
+        }
+    }
+}
+
+class Cozinha
+{
+    public void PrepararPedido(Pedido pedido)
+    {
+        Console.WriteLine($"Pedido {pedido.Numero} está sendo preparado.");
+    }
+}
+
+class Cliente
+{
+    public string Nome { get; set; }
+    public int Mesa { get; set; }
+
+    public Pedido FazerPedido()
+    {
+        var pedido = new Pedido();
+        return pedido;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        var cliente1 = new Cliente { Nome = "Alice", Mesa = 1 };
+        var pedido1 = cliente1.FazerPedido();
+        pedido1.Itens.Add(new ItemPedido { Nome = "Pizza", Quantidade = 2, PrecoUnitario = 12.99m });
+        pedido1.CalcularTotal();
+
+        var cozinha = new Cozinha();
+        cozinha.PrepararPedido(pedido1);
+
+        Console.ReadLine();
+    }
+}
+
+
